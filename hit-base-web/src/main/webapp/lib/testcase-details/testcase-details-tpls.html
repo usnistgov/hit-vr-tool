@@ -58,6 +58,13 @@
                     </tab-heading>
                     <div example-message target="{{target}}"></div>
                 </tab>
+
+                <tab active="tabs[5]" select="loadPersistentReport()" ng-show="hasPersistentReport()">
+                    <tab-heading>
+                        <i class="fa fa-file-text-o"></i>Saved Report
+                    </tab-heading>
+                    <div persistent-report target="{{target}}"></div>
+                </tab>
             </tabset>
         </div>
     </div>

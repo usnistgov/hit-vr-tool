@@ -396,6 +396,17 @@
             };
         }]);
 
+        /*mod
+            .controller('PersistentReportCtrl', ['$scope', '$rootScope', '$sce', 'TestCaseDetailsService', '$compile', '$timeout', '$modal', function ($scope, $rootScope, $sce, TestCaseDetailsService, $compile, $timeout, $modal) {
+                $scope.description = null;
+                $scope.eId = $scope.target + "-testDescription";
+                $scope.$on($scope.eId, function (event, description, title) {
+                    $scope.description = description;
+                    $scope.title = title;
+                });
+            }]);*/
+
+
     mod.factory('TestCaseDetailsService', function ($http, $q, $filter, $timeout) {
         var TestCaseDetailsService = function () {
         };

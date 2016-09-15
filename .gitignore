@@ -13,3 +13,6 @@ hs_err_pid*
 hit-base-web/target
 hit-base-service/target
 hit-base-web/.settings
+hit-base-web/client/node_modules
+hit-base-web/client/app/bower_components
+hit-base-web/client/.sass-cache

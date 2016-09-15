@@ -627,6 +627,17 @@ angular.module('cb')
             }
         };
 
+        $scope.savePersistentReport = function () {
+            if ($scope.testCase != null) {
+                var result = TestExecutionService.getTestCaseValidationResult($scope.testCase);
+                result = result != undefined ? result : null;
+                var comments = TestExecutionService.getTestCaseComments($scope.testCase);
+                comments = comments != undefined ? comments : null;
+                //$scope.testCase.id
+                ReportService.savePersistentReport($scope.testCase.id, result, comments);
+            }
+        };
+
         $scope.abortListening = function () {
             $scope.testExecutionService.deleteTestStepExecutionStatus($scope.testStep);
             $scope.stopListener();
