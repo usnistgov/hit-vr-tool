@@ -59,11 +59,15 @@
                     <div example-message target="{{target}}"></div>
                 </tab>
 
-                <tab active="tabs[5]" select="loadPersistentReport()" ng-show="hasPersistentReport()">
+                <tab active="tabs[5]" ng-show="testCase['report'] && testCase['report'] !== null">
                     <tab-heading>
                         <i class="fa fa-file-text-o"></i>Saved Report
                     </tab-heading>
-                    <div persistent-report target="{{target}}"></div>
+                    <!--TODO compare version -->
+                    <div class="alert alert-info" ng-show="testCase.report.versionChanged">
+                        <strong>Info!</strong> This test case has been updated since the report was saved.
+                    </div>
+                    <div ng-bind-html="testCase.report.html"></div>
                 </tab>
             </tabset>
         </div>

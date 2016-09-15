@@ -213,7 +213,7 @@
 
         ReportService.getPersistentReport = function (currentTestCaseId){
             var delay = $q.defer();
-            $http.get("api/testCaseValidationReport/getPersistentUserTestCaseReportContent", {testCaseId:currentTestCaseId}).then(
+            $http.get("api/testCaseValidationReport/getPersistentUserTestCaseReportContent", {params: {testCaseId:currentTestCaseId}}).then(
                 function (html) {
                     delay.resolve(html);
                 },
