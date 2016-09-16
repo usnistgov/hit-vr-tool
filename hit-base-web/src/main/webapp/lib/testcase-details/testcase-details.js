@@ -257,7 +257,7 @@
 
 
     mod
-        .controller('TestCaseDetailsCtrl', ['$scope', '$rootScope', '$sce', 'TestCaseDetailsService', '$compile', '$timeout', '$modal', 'ReportService', function ($scope, $rootScope, $sce, TestCaseDetailsService, $compile, $timeout, $modal,ReportService) {
+        .controller('TestCaseDetailsCtrl', ['$scope', '$rootScope', '$sce', 'TestCaseDetailsService', '$compile', '$timeout', '$modal', 'ReportService','userInfoService', function ($scope, $rootScope, $sce, TestCaseDetailsService, $compile, $timeout, $modal,ReportService,userInfoService) {
             $scope.tabs = [];
             $scope.loading = false;
             $scope.editor = null;
@@ -284,10 +284,14 @@
                     }
                 }
 
-                if(testCase.type.toLowerCase()==="testcase"){
+                if(testCase.type.toLowerCase()==="testcase"&&userInfoService.isAuthenticated()){
                     ReportService.getPersistentReport(testCase.id).then(
                         function(report){
-                            $scope.testCase['report'] = report.data;
+                            if(report.data.html!==undefined){
+                                $scope.testCase['report'] = report.data;
+                            } else {
+                                $scope.testCase['report'] = undefined;
+                            }
                         },
                         function(object){
                             console.log("No report for this testcase");
@@ -407,16 +411,6 @@
                 }, 1000);
             };
         }]);
-
-        /*mod
-            .controller('PersistentReportCtrl', ['$scope', '$rootScope', '$sce', 'TestCaseDetailsService', '$compile', '$timeout', '$modal', function ($scope, $rootScope, $sce, TestCaseDetailsService, $compile, $timeout, $modal) {
-                $scope.description = null;
-                $scope.eId = $scope.target + "-testDescription";
-                $scope.$on($scope.eId, function (event, description, title) {
-                    $scope.description = description;
-                    $scope.title = title;
-                });
-            }]);*/
 
 
     mod.factory('TestCaseDetailsService', function ($http, $q, $filter, $timeout) {

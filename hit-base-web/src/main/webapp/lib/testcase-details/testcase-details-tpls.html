@@ -59,11 +59,10 @@
                     <div example-message target="{{target}}"></div>
                 </tab>
 
-                <tab active="tabs[5]" ng-show="testCase['report'] && testCase['report'] !== null">
+                <tab active="tabs[5]" ng-show="testCase['report'] && testCase['report'] !== null && testCase['report']['html'] !== null">
                     <tab-heading>
                         <i class="fa fa-file-text-o"></i>Saved Report
                     </tab-heading>
-                    <!--TODO compare version -->
                     <div class="alert alert-info" ng-show="testCase.report.versionChanged">
                         <strong>Info!</strong> This test case has been updated since the report was saved.
                     </div>

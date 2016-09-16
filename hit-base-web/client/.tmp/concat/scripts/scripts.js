@@ -2419,7 +2419,8 @@ angular.module('cb').controller('CBExecutionCtrl', [
   'Transport',
   '$filter',
   'SOAPEscaper',
-  function ($scope, $window, $rootScope, CB, $modal, TestExecutionClock, Endpoint, TestExecutionService, $timeout, StorageService, User, ReportService, TestCaseDetailsService, $compile, Transport, $filter, SOAPEscaper) {
+  'userInfoService',
+  function ($scope, $window, $rootScope, CB, $modal, TestExecutionClock, Endpoint, TestExecutionService, $timeout, StorageService, User, ReportService, TestCaseDetailsService, $compile, Transport, $filter, SOAPEscaper, userInfoService) {
     $scope.targ = 'cb-executed-test-step';
     $scope.loading = false;
     $scope.error = null;
@@ -2942,6 +2943,10 @@ angular.module('cb').controller('CBExecutionCtrl', [
         $rootScope.$emit('cb:updateTestStepValidationReport', null, testStep);
       }
     };
+    $scope.persistentReportSaved = false;
+    $scope.isAuthenticated = function () {
+      return userInfoService.isAuthenticated();
+    };
     $scope.savePersistentReport = function () {
       if ($scope.testCase != null) {
         var result = TestExecutionService.getTestCaseValidationResult($scope.testCase);
@@ -2949,7 +2954,11 @@ angular.module('cb').controller('CBExecutionCtrl', [
         var comments = TestExecutionService.getTestCaseComments($scope.testCase);
         comments = comments != undefined ? comments : null;
         //$scope.testCase.id
-        ReportService.savePersistentReport($scope.testCase.id, result, comments);
+        ReportService.savePersistentReport($scope.testCase.id, result, comments).then(function () {
+          $scope.persistentReportSaved = true;
+        }, function () {
+          console.log('Unable to save the report.');
+        });
       }
     };
     $scope.abortListening = function () {

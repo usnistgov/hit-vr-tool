@@ -202,13 +202,17 @@
         };
 
         ReportService.savePersistentReport = function (currentTestCaseId,validationResult,validationComments){
+            var delay = $q.defer();
             $http.post("api/testCaseValidationReport/savePersistentUserTestCaseReport", {testCaseId:currentTestCaseId,result:validationResult,comments:validationComments}).then(
                 function () {
+                    delay.resolve();
                 },
                 function (response) {
                     console.log("Failed to save the persistent report: "+response);
+                    delay.reject(response.data);
                 }
             );
+            return delay.promise;
         };
 
         ReportService.getPersistentReport = function (currentTestCaseId){
