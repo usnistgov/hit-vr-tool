@@ -643,9 +643,11 @@ angular.module('cb')
                 ReportService.savePersistentReport($scope.testCase.id, result, comments).then(
                     function(){
                         $scope.persistentReportSaved=true;
+                        Notification.info({message: "Test case report saved", templateUrl: "NotificationInfoTemplate.html", scope: $rootScope, delay: 30000});
                     },
                     function(){
                         console.log("Unable to save the report.");
+                        Notification.error({message: "Failed to save the test case report. Please try again", templateUrl: "NotificationErrorTemplate.html", scope: $rootScope, delay: 30000});
                     }
                 );
             }
