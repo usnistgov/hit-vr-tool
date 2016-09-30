@@ -32,7 +32,7 @@ angular.module('cb')
 
 
 angular.module('cb')
-    .controller('CBExecutionCtrl', ['$scope', '$window', '$rootScope', 'CB', '$modal', 'TestExecutionClock', 'Endpoint', 'TestExecutionService', '$timeout', 'StorageService', 'User', 'ReportService', 'TestCaseDetailsService', '$compile', 'Transport', '$filter', 'SOAPEscaper', 'userInfoService', function ($scope, $window, $rootScope, CB, $modal, TestExecutionClock, Endpoint, TestExecutionService, $timeout, StorageService, User, ReportService, TestCaseDetailsService, $compile, Transport, $filter, SOAPEscaper, userInfoService) {
+    .controller('CBExecutionCtrl', ['$scope', '$window', '$rootScope', 'CB', '$modal', 'TestExecutionClock', 'Endpoint', 'TestExecutionService', '$timeout', 'StorageService', 'User', 'ReportService', 'TestCaseDetailsService', '$compile', 'Transport', '$filter', 'SOAPEscaper', 'userInfoService', 'Notification', function ($scope, $window, $rootScope, CB, $modal, TestExecutionClock, Endpoint, TestExecutionService, $timeout, StorageService, User, ReportService, TestCaseDetailsService, $compile, Transport, $filter, SOAPEscaper, userInfoService,Notification) {
         $scope.targ = "cb-executed-test-step";
         $scope.loading = false;
         $scope.error = null;
@@ -643,7 +643,12 @@ angular.module('cb')
                 ReportService.savePersistentReport($scope.testCase.id, result, comments).then(
                     function(){
                         $scope.persistentReportSaved=true;
-                        Notification.info({message: "Test case report saved", templateUrl: "NotificationInfoTemplate.html", scope: $rootScope, delay: 30000});
+                        Notification.success({
+                                    message: "Test case report saved",
+                                    templateUrl: 'NotificationSuccessTemplate.html',
+                                    scope: $rootScope,
+                                    delay: 10000
+                                  });
                     },
                     function(){
                         console.log("Unable to save the report.");
