@@ -85,9 +85,9 @@
                                 <li><a class="point" ng-click="exportAs('html')">As HTML</a></li>
                                 <li><a class="point" ng-click="exportAs('xml')">As XML</a></li>
                             </ul>
-                            <button type="button" class="btn btn-info btn-xs" ng-click="savePersistentReport()" ng-show="isAuthenticated()"><span><i class="fa fa-save fa-fw" ng-disabled="persistentReportSaved"></i>Save<span ng-if="persistentReportSaved">d</span></span>
-                            </button>
                         </div>
+                        <button type="button" title="Save the test case report to your account" class="btn btn-info btn-xs" ng-click="savePersistentReport()" ng-show="isAuthenticated()"><span><i class="fa fa-save fa-fw"></i>Save</span>
+                        </button>
                     </td>
                 </tr>
 
